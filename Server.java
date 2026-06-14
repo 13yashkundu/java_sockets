@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class Server {
 
@@ -58,28 +59,58 @@ public class Server {
 
             obj.connections();
 
-            String username1 = "person1@email.com";
-            String pass1 = "123456";
-
-            String username2 = "person2@email.com";
-            String pass2 = "78910";
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("person1@email.com", "123456");
+            map.put("person2@email.com", "78910");
 
             try {
 
                 System.out.println("Waiting for User1...");
-                obj.writeFile1("Enter username: ");
-                String person1 = obj.fileReader1();
 
-                obj.writeFile1("Enter password: ");
-                String password1 = obj.fileReader1();
+                obj.writeFile1("Sign in or Sign up");
+                String login = obj.fileReader1();
 
-                if (person1.equals(username1) && password1.equals(pass1)) {
+                if (login.equalsIgnoreCase("signin")) {
 
-                    System.out.println("User1 Connected");
+                    int attempt = 3;
+                    Boolean status = false;
+                    while (attempt != 0 && status == false) {
+                        obj.writeFile1("Enter username: ");
+                        String person1 = obj.fileReader1();
+
+                        obj.writeFile1("Enter password: ");
+                        String password1 = obj.fileReader1();
+
+                        if (map.containsKey(person1) && map.get(person1).equals(password1)) {
+                            System.out.println("User1 Connected");
+                            obj.writeFile1("Login succesfull");
+                            status = true;
+                        } else {
+                            obj.writeFile1("User not found");
+                            attempt--;
+                            obj.writeFile1(attempt + "attempts left");
+                            if (attempt == 0) {
+                                socket1.close();
+                                return;
+                            }
+                        }
+                    }
+                } else if (login.equalsIgnoreCase("signup")) {
+                    obj.writeFile1("Enter Email: ");
+                    String newUser = obj.fileReader1();
+
+                    while (map.containsKey(newUser)) {
+                        obj.writeFile1("Email already registered. Try another Email");
+                        obj.writeFile1("Enter Email: ");
+                        newUser = obj.fileReader1();
+                    }
+                    
+                    obj.writeFile1("Enter password: ");
+                    String newPass2 = obj.fileReader1();
+                    map.put(newUser, newPass2);    
+
                 } else {
-                    obj.writeFile1("User not found");
-                    socket1.close();
-                    return;
+                    obj.writeFile1("Invalid login type");
                 }
 
             } catch (Exception ex) {
@@ -90,19 +121,52 @@ public class Server {
 
             try {
 
-                obj.writeFile2("Enter username: ");
-                String person2 = obj.fileReader2();
+                obj.writeFile2("Sign in or Sign up");
+                String login = obj.fileReader2();
 
-                obj.writeFile2("Enter password: ");
-                String password2 = obj.fileReader2();
+                if (login.equalsIgnoreCase("signin")) {
 
-                if (person2.equals(username2) && password2.equals(pass2)) {
-                    System.out.println("User2 Connected");
+                    int attempt = 3;
+                    Boolean status = false;
+                    while (attempt != 0 && status == false) {
+                        obj.writeFile2("Enter username: ");
+                        String person2 = obj.fileReader2();
+
+                        obj.writeFile2("Enter password: ");
+                        String password2 = obj.fileReader2();
+
+                        if (map.containsKey(person2) && map.get(person2).equals(password2)) {
+                            System.out.println("User2 Connected");
+                            status = true;
+                            obj.writeFile2("Login succesfull");
+                            status = true;
+                        } else {
+                            obj.writeFile2("User not found");
+                            attempt--;
+                            obj.writeFile2(attempt + " attemps left");
+                            if (attempt == 0) {
+                                socket2.close();
+                                return;
+                            }
+                        }
+
+                    }
+                } else if (login.equalsIgnoreCase("signup")) {
+                    obj.writeFile2("Enter Email: ");
+                    String newUser2 = obj.fileReader2();
+
+                    while (map.containsKey(newUser2)) {
+                        obj.writeFile2("Email already registered. Try another Email");
+                        obj.writeFile2("Enter Email: ");
+                        newUser2 = obj.fileReader2();
+                    }
+                    
+                    obj.writeFile2("Enter password: ");
+                    String newPass2 = obj.fileReader2();
+                    map.put(newUser2, newPass2);
+
                 } else {
-                    obj.writeFile2("User not found");
-                    socket2.close();
-                    return;
-
+                    obj.writeFile2("Invalid login type");
                 }
 
             } catch (Exception e) {

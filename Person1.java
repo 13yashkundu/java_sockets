@@ -17,16 +17,53 @@ public class Person1 {
 
             Scanner sc = new Scanner(System.in);
 
-            String enterUSer = in.readLine();
-            System.out.println(enterUSer);
-            String username = sc.nextLine();
-            out.println(username);
+            String logOrSignin = in.readLine();
+            System.out.println(logOrSignin);
+            String logtype = sc.nextLine();
+            out.println(logtype);
 
-            String enterPass = in.readLine();
-            System.out.println(enterPass);
-            String pass = sc.nextLine();
-            out.println(pass);
-            
+            if (logtype.equalsIgnoreCase("signin")) {
+
+                Boolean loginSuccess = false;
+
+                while (!loginSuccess) {
+
+                    String enterUSer = in.readLine();
+                    System.out.println(enterUSer);
+                    String username = sc.nextLine();
+                    out.println(username);
+                    String enterPass = in.readLine();
+                    System.out.println(enterPass);
+                    String pass = sc.nextLine();
+                    out.println(pass);
+                    String response = in.readLine();
+                    System.out.println(response);
+
+                    if (response.equalsIgnoreCase("login succesfull")) {
+                        loginSuccess = true;
+                    } else {
+                        String attempt = in.readLine();
+                        System.out.println(attempt);
+                        if (attempt.startsWith("0")) {
+                            System.out.println(in.readLine());
+                            socket.close();
+                            return;
+                        }
+                    }
+                }
+
+            } else if (logtype.equalsIgnoreCase("signup")) {
+                String enterMail = in.readLine();
+                System.out.println(enterMail);
+                String newmail = sc.nextLine();
+                out.println(newmail);
+                String enterpass = in.readLine();
+                System.out.println(enterpass);
+                String newpass = sc.nextLine();
+                out.println(newpass);
+            } else {
+                System.out.println(in.readLine());
+            }
 
 
             while (true) {
