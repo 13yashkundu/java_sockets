@@ -56,10 +56,12 @@ public class Person1 {
                 System.out.println(enterMail);
                 String newmail = sc.nextLine();
                 out.println(newmail);
+                String enterpass = null;
 
                 while (true) {
                     String msg = in.readLine();
                     if (msg.equalsIgnoreCase("Enter password:")) {
+                        enterpass = msg;
                         break;
                     }
                     System.out.println(msg);
@@ -68,11 +70,10 @@ public class Person1 {
                     out.println(newmail);
                 }
 
-                String enterpass = in.readLine();
                 System.out.println(enterpass);
                 String newpass = sc.nextLine();
                 out.println(newpass);
-                
+
             } else {
                 System.out.println(in.readLine());
             }
