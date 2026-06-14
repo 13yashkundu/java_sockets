@@ -43,7 +43,6 @@ public class Person2 {
                         String attempt = in.readLine();
                         System.out.println(attempt);
                         if (attempt.startsWith("0")) {
-                            System.out.println(in.readLine());
                             socket.close();
                             return;
                         }
