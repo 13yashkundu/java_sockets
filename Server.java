@@ -111,6 +111,7 @@ public class Server {
 
                 } else {
                     obj.writeFile1("Invalid login type");
+                    
                 }
 
             } catch (Exception ex) {
