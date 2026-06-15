@@ -106,12 +106,14 @@ public class Server {
                     }
                     
                     obj.writeFile1("Enter password: ");
+                    System.out.println("Password prompt sent ");
                     String newPass2 = obj.fileReader1();
+                    System.out.println("Password received");
                     map.put(newUser, newPass2);    
 
                 } else {
                     obj.writeFile1("Invalid login type");
-                    
+                    socket1.close();
                 }
 
             } catch (Exception ex) {
@@ -168,6 +170,8 @@ public class Server {
 
                 } else {
                     obj.writeFile2("Invalid login type");
+                    socket2.close();
+                    return;
                 }
 
             } catch (Exception e) {

@@ -53,27 +53,33 @@ public class Person2 {
 
 
             }else if (logtype.equalsIgnoreCase("signup")) {
-                String enterMail = in.readLine();
-                System.out.println(enterMail);
-                String newmail = sc.nextLine();
-                out.println(newmail);
-                
-                String enterpass = null;
+                String msg = in.readLine();
+                System.out.println(msg); // Enter Email:
+
+                String email = sc.nextLine();
+                out.println(email);
+
                 while (true) {
-                    String msg = in.readLine();
-                    if (msg.equalsIgnoreCase("Enter password:")) {
-                        enterpass = msg;
+
+                    msg = in.readLine();
+
+                    if (msg.equals("Enter password: ")) {
+                        System.out.println(msg);
+
+                        String password = sc.nextLine();
+                        out.println(password);
+
                         break;
                     }
-                    System.out.println(msg);
-                    System.out.println(in.readLine());
-                    newmail = sc.nextLine();
-                    out.println(newmail);
-                }
 
-                System.out.println(enterpass);
-                String newpass = sc.nextLine();
-                out.println(newpass);
+                    System.out.println(msg); // Email already registered
+
+                    msg = in.readLine(); // Enter Email:
+                    System.out.println(msg);
+
+                    email = sc.nextLine();
+                    out.println(email);
+                }
             } else {
                 System.out.println(in.readLine());
             }
